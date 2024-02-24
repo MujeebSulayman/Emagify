@@ -23,29 +23,26 @@ const MobileNav = () => {
                     width={180}
                     height={30}
                     /> */}
-				<h2 className='text-2xl font-bold text-primary'>Emagify</h2>
+				<h2 className='text-2xl font-bold text-gray-600'>Emagify</h2>
 			</Link>
 			<nav className=' flex gap-2'>
 				<SignedIn>
 					<UserButton afterSignOutUrl='/' />
 					<Sheet>
 						<SheetTrigger>
-                            <Image 
-                            src='/assets/icons/menu.svg'
-                            alt='menu'
-                            width={32}
-                            height={32}
-                            className='cursor-pointer'
-                            />
-                        </SheetTrigger>
+							<Image
+								src='/assets/icons/menu.svg'
+								alt='menu'
+								width={32}
+								height={32}
+								className='cursor-pointer'
+							/>
+						</SheetTrigger>
 						<SheetContent className='sheet-content sm:w-64'>
-							<SheetHeader>
-								<SheetTitle>Are you absolutely sure?</SheetTitle>
-								<SheetDescription>
-									This action cannot be undone. This will permanently delete
-									your account and remove your data from our servers.
-								</SheetDescription>
-							</SheetHeader>
+							<>
+								{/* <Image src='/assets/images/logo-text.svg' alt='logo' width={180} height={30} /> */}
+								<h2 className='text-2xl font-bold text-gray-700'>Emagify</h2>
+							</>
 						</SheetContent>
 					</Sheet>
 				</SignedIn>
