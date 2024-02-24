@@ -38,7 +38,7 @@ const MobileNav = () => {
                             className='cursor-pointer'
                             />
                         </SheetTrigger>
-						<SheetContent>
+						<SheetContent className='sheet-content sm:w-64'>
 							<SheetHeader>
 								<SheetTitle>Are you absolutely sure?</SheetTitle>
 								<SheetDescription>
