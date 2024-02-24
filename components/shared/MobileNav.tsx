@@ -1,17 +1,15 @@
+'use client';
+
 import React from 'react';
-import {
-	Sheet,
-	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SignedIn, UserButton } from '@clerk/nextjs';
+import { navLinks } from '@/constants';
+import { usePathname } from 'next/navigation';
 
 const MobileNav = () => {
+	const pathname = usePathname();
 	return (
 		<header className='header'>
 			<Link
@@ -43,6 +41,33 @@ const MobileNav = () => {
 								{/* <Image src='/assets/images/logo-text.svg' alt='logo' width={180} height={30} /> */}
 								<h2 className='text-2xl font-bold text-gray-700'>Emagify</h2>
 							</>
+							<ul className='sidebar-nav_elements'>
+								{navLinks.map((link) => {
+									const isActive = link.route === pathname;
+									return (
+										<li
+											key={link.route}
+											className={`sidebar-nav_element ${
+												isActive
+													? 'bg-purple-gradient text-white'
+													: 'text-gray-600'
+											}`}>
+											<Link
+												href={link.route}
+												className='sidebar-link'>
+												<Image
+													src={link.icon}
+													alt='logo'
+													width={24}
+													height={24}
+													className={`${isActive && 'brightness-200'}`}
+												/>
+												{link.label}
+											</Link>
+										</li>
+									);
+								})}
+							</ul>
 						</SheetContent>
 					</Sheet>
 				</SignedIn>
