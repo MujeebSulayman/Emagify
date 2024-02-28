@@ -195,7 +195,7 @@
   }
 
   .select-trigger {
-    @apply flex items-center  gap-2 py-5 capitalize focus-visible:outline-none;
+    @apply flex items-center gap-2 py-5 capitalize focus-visible:outline-none;
   }
 
   .select-item {
