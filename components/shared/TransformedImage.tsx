@@ -1,3 +1,6 @@
+import { dataUrl, debounce, getImageSize } from '@/lib/utils';
+import { CldImage } from 'next-cloudinary';
+import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import React from 'react';
 
@@ -30,9 +33,41 @@ const TransformedImage = ({
 				)}
 			</div>
 			{image?.public_id && transformationConfig ? (
-				<div className='relative'></div>
+				<div className='relative'>
+					<CldImage
+						width={getImageSize(type, image, 'width')}
+						height={getImageSize(type, image, 'height')}
+						src={image?.public_id}
+						alt={image.title}
+						sizes={'(max-width: 767px) 100vw, 50vw'}
+						placeholder={dataUrl as PlaceholderValue}
+						className='transformed-image'
+						onLoad={() => {
+							debounce(() => {
+								setIsTransforming && setIsTransforming(false);
+							}, 8000);
+						}}
+						onError={() => {
+							setIsTransforming && setIsTransforming(false);
+						}}
+
+						{...transformationConfig}
+					/>
+					{isTransforming && (
+						<div className='transforming-loader'>
+							<Image 
+							src='/assets/icons/spinner.svg'
+							width={50}
+							height={50}
+							alt='Tranforming'
+							/>
+						</div>
+					)}
+				</div>
 			) : (
-				<div className='transformed-placeholder'></div>
+				<div className='transformed-placeholder'>
+					
+				</div>
 			)}
 		</div>
 	);
