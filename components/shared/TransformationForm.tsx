@@ -24,13 +24,14 @@ import {
 import { Input } from '@/components/ui/input';
 import {
 	aspectRatioOptions,
+	creditFee,
 	defaultValues,
 	transformationTypes,
 } from '@/constants';
 import { CustomField } from './CustomField';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { Transform } from 'stream';
-import { AspectRatioKey } from '@/lib/utils';
+import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils';
 
 export const formSchema = z.object({
 	title: z.string(),
@@ -39,8 +40,6 @@ export const formSchema = z.object({
 	prompt: z.string().optional(),
 	publicId: z.string(),
 });
-
-const onTransformHandler = () => {};
 
 const TransformationForm = ({
 	action,
@@ -58,6 +57,7 @@ const TransformationForm = ({
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isTransforming, setIsTransforming] = useState(false);
 	const [transformationConfig, setTransformationConfig] = useState(config);
+	const [isPending, startTransition] = useTransition();
 
 	const initialValues =
 		data && action === 'Update'
@@ -82,12 +82,46 @@ const TransformationForm = ({
 		value: string,
 		type: string,
 		onChangeField: (value: string) => void
-	) => {};
+	) => {
+		debounce(() => {
+			setNewTranformation((prevState: any) => ({
+				...prevState,
+				[type]: {
+					...prevState?.[type],
+					[fieldName === 'prompt' ? 'prompt' : 'to']: value,
+				},
+			}));
+			return onChangeField(value);
+		}, 1000);
+	};
+	const onTransformHandler = async () => {
+		setIsTransforming(true);
+		setTransformationConfig(
+			deepMergeObjects(newTranformation, transformationConfig)
+		);
+
+		setNewTranformation(null);
+		startTransition(async () => {
+			// await updateCredits(userId, creditFee)
+		});
+	};
 
 	const onSelectFieldHandler = (
 		value: string,
 		onChangeField: (value: string) => void
-	) => {};
+	) => {
+		const imageSize = aspectRatioOptions[value as AspectRatioKey];
+
+		setImage((prevState: any) => ({
+			...prevState,
+			aspectRatio: imageSize.aspectRatio,
+			width: imageSize.width,
+			height: imageSize.height,
+		}));
+
+		setNewTranformation(transformationType.config);
+		return onChangeField(value);
+	};
 
 	// ##############################################
 
