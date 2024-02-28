@@ -7,7 +7,7 @@ import User from '../database/models/user.model';
 import Image from '../database/models/image.model';
 import { redirect } from 'next/navigation';
 
-import { v2 as cloudinary } from 'next-cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 
 const populateUser = (query: any) =>
 	query.populate({
@@ -113,7 +113,7 @@ export async function getAllImages({
 			secure: true,
 		});
 
-		let expression = 'folder=imaginify';
+		let expression = 'folder=Emagify';
 
 		if (searchQuery) {
 			expression += ` AND ${searchQuery}`;
