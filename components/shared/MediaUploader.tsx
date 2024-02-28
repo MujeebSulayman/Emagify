@@ -40,8 +40,11 @@ const MediaUploader = ({
 
 	return (
 		<CldUploadWidget
+            options={{
+                sources: ['local', 'unsplash', 'camera'],
+            }}
 			uploadPreset='TheEmagify'
-			options={{ multiple: false, resourceType: 'image' }}
+			// options={{ multiple: false, resourceType: 'image' }}
 			onSuccess={onUploadSuccessHandler}
 			onError={onUploadErrorHandler}>
 			{({ open }) => (
