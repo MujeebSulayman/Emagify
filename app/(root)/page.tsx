@@ -21,7 +21,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 							href={link.route}
 							key={link.route}
 							className='flex-center flex-col gap-2'>
-							<li className='flex-center w-fit rounded-full bg-gray-300 gap-4'>
+							<li className='flex-center w-fit rounded-full bg-white gap-4'>
 								<Image
 									src={link.icon}
 									alt='image'
@@ -29,7 +29,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 									height={24}
 								/>
 							</li>
-							<p className='p-24-medium text-center text-gray-400'>
+							<p className='p-24-medium text-center text-white'>
 								{link.label}
 							</p>
 						</Link>
