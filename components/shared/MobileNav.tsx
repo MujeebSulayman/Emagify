@@ -75,7 +75,7 @@ const MobileNav = async () => {
 					<div className='flex gap-2'>
 						<Button
 							asChild
-							className='button bg-gray-700 bg-cover'>
+							className='button bg-purple-gradient bg-cover'>
 							<Link href='/sign-in'>Login</Link>
 						</Button>
 						<Button

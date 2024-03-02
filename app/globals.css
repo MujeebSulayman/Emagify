@@ -95,7 +95,7 @@
   }
 
   .gradient-text {
-    @apply bg-purple-gradient bg-gray-700 bg-clip-text text-transparent;
+    @apply bg-purple-gradient bg-clip-text text-transparent;
   }
 
   /* ===== ALIGNMENTS */
