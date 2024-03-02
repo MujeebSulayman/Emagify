@@ -110,7 +110,7 @@
   /* ===== TYPOGRAPHY */
   /* 44 */
   .h1-semibold {
-    @apply text-[36px] font-semibold sm:text-[44px] leading-[120%] sm:leading-[56px];
+    @apply text-[25px] font-semibold sm:text-[44px] leading-[120%] sm:leading-[56px];
   }
 
   /* 36 */
@@ -220,7 +220,7 @@
 
   /* Home Page */
   .home {
-    @apply flex-center  h-72 flex-col gap-4 rounded-[20px] border bg-gray-800 bg-cover bg-no-repeat p-10 shadow-inner;
+    @apply flex-center h-72 flex-col gap-4 rounded-[20px] border bg-gray-800 bg-cover bg-no-repeat p-10 shadow-inner;
   }
 
   .home-heading {
