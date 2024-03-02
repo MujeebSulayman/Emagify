@@ -32,9 +32,7 @@ const Sidebar = () => {
 									<li
 										key={link.route}
 										className={`sidebar-nav_element hover:text-gray-700 ${
-											isActive
-												? 'bg-gray-700 text-white'
-												: 'text-gray-600'
+											isActive ? 'bg-gray-700 text-white' : 'text-gray-600'
 										}`}>
 										<Link
 											href={link.route}
@@ -88,7 +86,7 @@ const Sidebar = () => {
 					<SignedOut>
 						<Button
 							asChild
-							className='button bg-purple-gradient bg-cover'>
+							className='button bg-gray-700 bg-cover'>
 							<Link href='/sign-in'>Login</Link>
 						</Button>
 					</SignedOut>
