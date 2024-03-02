@@ -49,7 +49,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 							key={link.route}
 							href={link.route}
 							className='flex-center flex-col gap-2 sm:hidden'>
-							<li className='flex-center w-fit rounded-full bg-white p-3'>
+							<li className='flex-center w-fit rounded-full bg-white p-4'>
 								{/* Adjusted padding */}
 								<Image
 									src={link.icon}
