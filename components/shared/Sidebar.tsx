@@ -82,7 +82,7 @@ const Sidebar = () => {
 							</li>
 						</ul>
 					</SignedIn>
-					<div className='flex flex-col items-start justify-start gap-2 p-4'>
+					<div className='flex flex-col items-start justify-start gap-2'>
 						<SignedOut>
 							<Button
 								asChild
