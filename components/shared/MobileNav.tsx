@@ -33,13 +33,13 @@ const MobileNav = async () => {
 			<nav className=' flex gap-2'>
 				<SignedIn>
 					<div className='flex gap-2'>
-						<Image
+						{/* <Image
 							src='/assets/icons/coins.svg'
 							alt='coins'
 							width={50}
 							height={50}
 							className='size-9 md:size-12'
-						/>
+						/> */}
 						{/* <h3 className='text-gray-700 m-2'>{user.creditBalance} Credits</h3> */}
 					</div>
 					<UserButton afterSignOutUrl='/' />
@@ -108,4 +108,3 @@ const MobileNav = async () => {
 
 export default MobileNav;
 
-	
