@@ -4,12 +4,18 @@ import React from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, UserButton, auth } from '@clerk/nextjs';
 import { navLinks } from '@/constants';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
+// import { getUserById } from '@/lib/actions/user.actions';
 
-const MobileNav = () => {
+// const { userId } = auth();
+
+// if (!userId) redirect('/sign-in');
+
+const MobileNav = async () => {
+	// const user = await getUserById(userId);
 	const pathname = usePathname();
 	return (
 		<header className='header'>
@@ -26,6 +32,16 @@ const MobileNav = () => {
 			</Link>
 			<nav className=' flex gap-2'>
 				<SignedIn>
+					<div className='flex gap-2'>
+						<Image
+							src='/assets/icons/coins.svg'
+							alt='coins'
+							width={50}
+							height={50}
+							className='size-9 md:size-12'
+						/>
+						{/* <h3 className='text-gray-700 m-2'>{user.creditBalance} Credits</h3> */}
+					</div>
 					<UserButton afterSignOutUrl='/' />
 					<Sheet>
 						<SheetTrigger>
@@ -42,6 +58,7 @@ const MobileNav = () => {
 								{/* <Image src='/assets/images/logo-text.svg' alt='logo' width={180} height={30} /> */}
 								<h2 className='text-2xl font-bold text-gray-700'>Emagify</h2>
 							</>
+
 							<ul className='header-nav_elements'>
 								{navLinks.map((link) => {
 									const isActive = link.route === pathname;
