@@ -1,11 +1,8 @@
-'use client';
+"use client"
 
-import { loadStripe } from '@stripe/stripe-js';
 import { useEffect } from 'react';
-
+import axios from 'axios';
 import { useToast } from '@/components/ui/use-toast';
-import { checkoutCredits } from '@/lib/actions/transaction.action';
-
 import { Button } from '../ui/button';
 
 const Checkout = ({
@@ -22,50 +19,38 @@ const Checkout = ({
 	const { toast } = useToast();
 
 	useEffect(() => {
-		loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+		// Load any necessary scripts or SDKs here if required by Paystack
+		// For Paystack, you might need to include their inline script in your HTML template
 	}, []);
 
-	useEffect(() => {
-		// Check to see if this is a redirect back from Checkout
-		const query = new URLSearchParams(window.location.search);
-		if (query.get('success')) {
-			toast({
-				title: 'Order placed!',
-				description: 'You will receive an email confirmation',
-				duration: 5000,
-				className: 'success-toast',
+	const onCheckout = async () => {
+		try {
+			// Make a POST request to your server to initiate the Paystack transaction
+			const response = await axios.post('/api/paystack/initialize', {
+				plan,
+				amount,
+				credits,
+				buyerId,
 			});
-		}
 
-		if (query.get('canceled')) {
+			// Redirect to Paystack checkout page
+			window.location.href = response.data.data.authorization_url;
+		} catch (error) {
+			console.error('Error initiating Paystack transaction:', error);
 			toast({
-				title: 'Order canceled!',
-				description: "Continue to shop around and checkout when you're ready",
+				title: 'Error',
+				description: 'Failed to initiate payment. Please try again later.',
 				duration: 5000,
 				className: 'error-toast',
 			});
 		}
-	}, []);
-
-	const onCheckout = async () => {
-		const transaction = {
-			plan,
-			amount,
-			credits,
-			buyerId,
-		};
-
-		await checkoutCredits(transaction);
 	};
 
 	return (
-		<form
-			action={onCheckout}
-			method='POST'>
+		<form onSubmit={onCheckout}>
 			<section>
 				<Button
 					type='submit'
-					role='link'
 					className='w-full rounded-full bg-purple-gradient bg-cover'>
 					Buy Credit
 				</Button>
