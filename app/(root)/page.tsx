@@ -25,15 +25,31 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 					Unleash Your Creative Vision with Emagify
 				</h1>
 				<ul className='flex-center w-full gap-5 mt-8 sm:gap-20'>
-				
 					{/* Adjusted the gap */}
-					{navLinks.slice(1, 4).map((link) => (
+					{navLinks.slice(1, 5).map((link) => (
 						<Link
 							key={link.route}
 							href={link.route}
-							className='flex-center flex-col gap-2'>
-							<li className='flex-center w-fit rounded-full bg-white p-2'>
-							
+							className='sm:flex-center flex-col gap-2 hidden'>
+							<li className='flex-center w-fit rounded-full  bg-white p-4'>
+								{/* Adjusted padding */}
+								<Image
+									src={link.icon}
+									alt='image'
+									width={24}
+									height={24}
+								/>
+							</li>
+							<p className='p-6-medium text-center text-white'>{link.label}</p>
+							{/* Adjusted padding */}
+						</Link>
+					))}
+					{navLinks.slice(2, 5).map((link) => (
+						<Link
+							key={link.route}
+							href={link.route}
+							className='flex-center flex-col gap-2 sm:hidden'>
+							<li className='flex-center w-fit rounded-full bg-white p-3'>
 								{/* Adjusted padding */}
 								<Image
 									src={link.icon}
@@ -47,7 +63,6 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 						</Link>
 					))}
 				</ul>
-				
 			</section>
 
 			<section className='sm:mt-12'>
