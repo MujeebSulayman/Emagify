@@ -66,7 +66,7 @@ const Checkout = ({
 				<Button
 					type='submit'
 					role='link'
-					className='w-full rounded-md bg-gray-700 px-4 py-6 bg-cover'>
+					className='w-full rounded-md  px-4 py-6 bg-cover'>
 					Buy Credit
 				</Button>
 			</section>
