@@ -82,22 +82,23 @@ const Sidebar = () => {
 							</li>
 						</ul>
 					</SignedIn>
-					<div className='flex flex-col items-start justify-start gap-2'>
-						<SignedOut>
-							<Button
-								asChild
-								className='button bg-gray-700 bg-cover'>
-								<Link href='/sign-in'>Login</Link>
-							</Button>
-						</SignedOut>
-						<SignedOut>
-							<Button
-								asChild
-								className='button bg-gray-700 bg-cover'>
-								<Link href='/sign-up'>Sign Up</Link>
-							</Button>
-						</SignedOut>
-					</div>
+
+					<SignedOut>
+						<div className='flex-center gap-2'>
+							
+						<Button
+							asChild
+							className='button bg-gray-700 bg-cover'>
+							<Link href='/sign-in'>Login</Link>
+						</Button>
+						<Button
+							asChild
+							className='button bg-gray-700 bg-cover'>
+							<Link href='/sign-up'>Sign Up</Link>
+						</Button>
+								</div>
+					</SignedOut>
+					
 				</nav>
 			</div>
 		</aside>
