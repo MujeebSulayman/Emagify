@@ -1,61 +1,56 @@
-import { redirect } from 'next/navigation';
+"use server";
+
+import { redirect } from 'next/navigation'
+import Stripe from 'stripe';
 import { handleError } from '../utils';
 import { connectToDatabase } from '../database/mongoose';
 import Transaction from '../database/models/transaction.model';
 import { updateCredits } from './user.actions';
-import axios from 'axios'; // Import Axios for HTTP requests
 
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
-	try {
-		await connectToDatabase();
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-		const amount = Number(transaction.amount) * 100; // Convert amount to kobo (Paystack uses kobo as the smallest currency unit)
+  const amount = Number(transaction.amount) * 100;
 
-		const transactionParams = {
-	
-			amount: amount,
-			reference: 'your_unique_reference', // Generate a unique reference for each transaction
-			metadata: {
-				plan: transaction.plan,
-				credits: transaction.credits,
-				buyerId: transaction.buyerId,
-			},
-			callback_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/paystack/callback`, // Your Paystack callback URL
-		};
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          unit_amount: amount,
+          product_data: {
+            name: transaction.plan,
+          }
+        },
+        quantity: 1
+      }
+    ],
+    metadata: {
+      plan: transaction.plan,
+      credits: transaction.credits,
+      buyerId: transaction.buyerId,
+    },
+    mode: 'payment',
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
+  })
 
-		// Make a POST request to Paystack to initialize the transaction
-		const response = await axios.post(
-			'https://api.paystack.co/transaction/initialize',
-			transactionParams,
-			{
-				headers: {
-					Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY}`, // Add Paystack secret key in the Authorization header
-					'Content-Type': 'application/json',
-				},
-			}
-		);
-
-		// Redirect to Paystack authorization URL
-		redirect(response.data.data.authorization_url);
-	} catch (error) {
-		handleError(error);
-	}
+  redirect(session.url!)
 }
 
 export async function createTransaction(transaction: CreateTransactionParams) {
-	try {
-		await connectToDatabase();
+  try {
+    await connectToDatabase();
 
-		// Create a new transaction with a buyerId
-		const newTransaction = await Transaction.create({
-			...transaction,
-			buyer: transaction.buyerId,
-		});
+    // Create a new transaction with a buyerId
+    const newTransaction = await Transaction.create({
+      ...transaction, buyer: transaction.buyerId
+    })
 
-		await updateCredits(transaction.buyerId, transaction.credits);
+    await updateCredits(transaction.buyerId, transaction.credits);
 
-		return JSON.parse(JSON.stringify(newTransaction));
-	} catch (error) {
-		handleError(error);
-	}
+    return JSON.parse(JSON.stringify(newTransaction));
+  } catch (error) {
+    handleError(error)
+  }
 }

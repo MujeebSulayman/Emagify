@@ -31,9 +31,9 @@ const Sidebar = () => {
 								return (
 									<li
 										key={link.route}
-										className={`sidebar-nav_element ${
+										className={`sidebar-nav_element hover:text-gray-700 ${
 											isActive
-												? 'bg-purple-gradient text-white'
+												? 'bg-gray-700 text-white'
 												: 'text-gray-600'
 										}`}>
 										<Link
@@ -44,7 +44,7 @@ const Sidebar = () => {
 												alt='logo'
 												width={24}
 												height={24}
-												className={`${isActive && 'brightness-200'}`}
+												className={`${isActive && 'brightness-900'}`}
 											/>
 											{link.label}
 										</Link>
@@ -58,10 +58,8 @@ const Sidebar = () => {
 								return (
 									<li
 										key={link.route}
-										className={`sidebar-nav_element ${
-											isActive
-												? 'bg-purple-gradient text-white'
-												: 'text-gray-600'
+										className={`sidebar-nav_element hover:text-gray-700 ${
+											isActive ? 'bg-gray-700 text-white' : 'text-gray-600'
 										}`}>
 										<Link
 											href={link.route}
