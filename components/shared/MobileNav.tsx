@@ -69,22 +69,21 @@ const MobileNav = () => {
 						</SheetContent>
 					</Sheet>
 				</SignedIn>
-				<div className='flex gap-2 p-4'>
-					<SignedOut>
+
+				<SignedOut>
+					<div className='flex gap-2'>
 						<Button
 							asChild
 							className='button bg-gray-700 bg-cover'>
 							<Link href='/sign-in'>Login</Link>
 						</Button>
-					</SignedOut>
-					<SignedOut>
 						<Button
 							asChild
 							className='button bg-gray-700 bg-cover'>
 							<Link href='/sign-up'>Sign Up</Link>
 						</Button>
-					</SignedOut>
-				</div>
+					</div>
+				</SignedOut>
 			</nav>
 		</header>
 	);
