@@ -170,6 +170,10 @@
     @apply py-6 px-6 flex-center gap-3 rounded-md md:w-60 w-full p-16-semibold focus-visible:ring-offset-0 focus-visible:ring-transparent !important;
   }
 
+  .insuffButton {
+    @apply py-6 px-6 flex-center gap-3 rounded-md md:w-60 w-full p-16-semibold focus-visible:ring-offset-0 focus-visible:ring-transparent !important;
+  }
+
   .dropdown-content {
     @apply shadow-lg rounded-md overflow-hidden p-0;
   }
