@@ -10,14 +10,13 @@ const Checkout = ({
 	plan,
 	amount,
 	credits,
-	buyerId,
-	email,
+	buyerId
 }: {
 	plan: string;
 	amount: number;
 	credits: number;
 	buyerId: string;
-	email: string;
+
 }) => {
 	const { toast } = useToast();
 
@@ -40,7 +39,7 @@ const Checkout = ({
 			amount,
 			credits,
 			buyerId,
-			email,
+		
 		};
 
 		await checkoutCredits(transaction);
