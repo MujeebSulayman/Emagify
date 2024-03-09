@@ -1,4 +1,4 @@
-'use server'
+'use client'
 
 import axios from 'axios';
 import { handleError } from '../utils';
@@ -22,7 +22,7 @@ export async function checkoutCredits(transaction: CheckoutTransactionParams) {
 		},
 		{
 			headers: {
-				Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET_KEY}`,
+				Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET_KEY!}`,
 				'Content-Type': 'application/json',
 			},
 		}
