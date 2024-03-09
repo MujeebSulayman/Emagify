@@ -1,29 +1,34 @@
-'use server';
+'use server'
 
-import { redirect } from 'next/navigation';
-import { Paystack } from 'paystack';
+import axios from 'axios';
 import { handleError } from '../utils';
 import { connectToDatabase } from '../database/mongoose';
 import Transaction from '../database/models/transaction.model';
 import { updateCredits } from './user.actions';
+import { redirect } from 'next/navigation';
 
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
-	const paystack = new Paystack(process.env.NEXT_PUBLIC_PAYSTACK_SECRET_KEY!);
-
 	const amount = Number(transaction.amount) * 100;
 
-	const session = await paystack.transaction.initialize({
-		amount,
-		email: 'customer@example.com', // replace with the customer's email
-		metadata: {
-			plan: transaction.plan,
-			credits: transaction.credits,
-			buyerId: transaction.buyerId,
+	const response = await axios.post(
+		'https://api.paystack.co/transaction/initialize',
+		{
+			amount: amount,
+			metadata: {
+				plan: transaction.plan,
+				credits: transaction.credits,
+				buyerId: transaction.buyerId,
+			},
 		},
-		callback_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
-	});
+		{
+			headers: {
+				Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+				'Content-Type': 'application/json',
+			},
+		}
+	);
 
-	redirect(session.data.authorization_url);
+	redirect('/');
 }
 
 export async function createTransaction(transaction: CreateTransactionParams) {
