@@ -1,7 +1,7 @@
 'use client';
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -10,7 +10,10 @@ import { navLinks } from '@/constants';
 import { usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
 
+
 const MobileNav = async () => {
+
+	const [toggle, setToggle] = useState(false)
 	const pathname = usePathname();
 	return (
 		<header className='header'>
